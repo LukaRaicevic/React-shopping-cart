@@ -8,6 +8,15 @@ class FormComponent extends Component {
         image: ""
     }
 
+    resetForm = () => {
+      this.setState({
+        name: "",
+        price: 0,
+        description: "",
+        image: ""
+      })
+    }
+
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -15,6 +24,7 @@ class FormComponent extends Component {
     handleSubmit = event => {
         event.preventDefault();
         this.props.addProduct(this.state);
+        this.resetForm();
     }
 
     render() {

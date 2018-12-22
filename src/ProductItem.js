@@ -8,7 +8,7 @@ class ProductItem extends Component {
               <p>{this.props.name}</p>
               <p>${this.props.price}</p>
               <button className="details-button">Details</button>
-              <button className="buy-button">Buy</button>
+              <button className="buy-button" onClick={this.props.handleAddToShoppingCart(this.props.product)}>Buy</button>
             </div>
         );
     }
