@@ -8,8 +8,7 @@ import ShoppingCartComponent from './ShoppingCartComponent.js';
 class App extends Component {
   state = {
     products: [
-      { id: 1, name: "Sample Watch", price: 199, description: "Lorem ipsum...", image: "https://sc02.alicdn.com/kf/HTB1gHRfg6uhSKJjSspmq6AQDpXaI/Accept-Sample-Design-Your-Own-Blank-Wrist.jpg_350x350.jpg" },
-      { id: 2, name: "Product #2", price: 230, description: "Lorem ipsum...", image: "https://pl.shadestation.com/media/thumbs/350x350/media/product_images/Fossil-Watches-FS5439fw350fh350.jpg" }
+      
     ],
     shoppingCartProducts: {},
     total: 0
@@ -20,7 +19,9 @@ class App extends Component {
       ...product,
       id: this.state.products.length + 1
     }
-    this.setState({ products: [...this.state.products, product]});
+    this.setState({ products: [...this.state.products, product]}, () => {
+      localStorage.setItem("products", JSON.stringify(this.state.products));
+    });
   }
 
   addToShoppingCart = obj => {
@@ -71,10 +72,16 @@ class App extends Component {
     console.log(total)
   
     this.setState({
-      total: total
+      total
     })
   }
-  
+
+  componentDidMount() {
+    const products = JSON.parse(localStorage.getItem("products"));
+    setTimeout(() => {
+      this.setState({ products: products || [] });
+    }, 1000);
+  }
 
   render() {
     return (
